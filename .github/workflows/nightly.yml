@@ -45,5 +45,5 @@ jobs:
           context: palworld
           tags: ghcr.io/${{ github.actor }}/palworld:latest
           build-args:
-          - STEAMCMD_IMAGE_TAG=ghcr.io/${{ github.actor }}/steamcmd
+          - "STEAMCMD_IMAGE_TAG=ghcr.io/${{ github.actor }}/steamcmd"
           cache-from: type=gha
