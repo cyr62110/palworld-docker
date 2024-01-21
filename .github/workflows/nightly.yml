@@ -1,4 +1,8 @@
 name: Publish image nightly
+
+permissions:
+  contents: read
+  packages: write
  
 on:
   push: {}
