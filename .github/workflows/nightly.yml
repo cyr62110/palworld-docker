@@ -4,17 +4,39 @@ on:
   push: {}
  
 jobs:
-  build-with-docker:
-    name: Build with Docker
+  # The steamcmd image fully uses the GitHub actions docker cache to avoid rebuilding it every night.
+  build-steamcmd:
+    name: Build steamcmd parent image
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
       - uses: docker/setup-buildx-action@v3
       - uses: docker/build-push-action@v5
         with:
-          context: .
-          push: true
-          tags: cyr62110/palworld-server:latest
+          context: /steamcmd
+          tags: cyr62110/steamcmd:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  # Do not push image to the cache so we can retrieve the update.
+  build-palworld-server:
+    name: Build with Docker
+    runs-on: ubuntu-20.04
+    needs: build-steamcmd
+    steps:
+      - uses: actions/checkout@v3
+      - uses: docker/setup-buildx-action@v3
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push palword image
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          context: /palworld
+          tags: ghcr.io/cyr62110/palworld:latest
+          cache-from: type=gha
           

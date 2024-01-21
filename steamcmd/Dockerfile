@@ -14,11 +14,3 @@ RUN curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.t
     ./steamcmd.sh +quit && \
     mkdir -p .steam/sdk64 && \
     ln -s ~/linux64/steamclient.so .steam/sdk64/steamclient.so
-
-# Install Palworld server
-RUN ./steamcmd.sh +login anonymous +app_update 2394010 validate +quit
-
-COPY --chmod=0777 StartPalworldServer.sh /home/steam
-
-ENTRYPOINT ["./StartPalworldServer.sh"]
-VOLUME /home/steam/Steam/steamapps/common/PalServer/Pal/Saved
