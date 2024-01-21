@@ -13,7 +13,7 @@ jobs:
       - uses: docker/setup-buildx-action@v3
       - uses: docker/build-push-action@v5
         with:
-          context: /steamcmd
+          context: steamcmd
           tags: cyr62110/steamcmd:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -36,7 +36,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: /palworld
+          context: palworld
           tags: ghcr.io/cyr62110/palworld:latest
           cache-from: type=gha
           
