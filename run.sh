@@ -6,7 +6,7 @@
 # - PALWORD_IMAGE_VERSION: Version of the image. Default: latest.
 #
 
-SAVE_DIR=${PALWORD_SAVE_DIR:=$PWD}
+SAVE_DIR=${PALWORD_SAVE_DIR:=Pal}
 ABSOLUTE_SAVE_DIR=$(realpath "$SAVE_DIR")
 IMAGE_VERSION=${PALWORD_IMAGE_VERSION:=latest}
 CONFIG_PATH=Config/LinuxServer/PalWorldSettings.ini
@@ -37,6 +37,6 @@ else
 fi
 
 docker run \
-    --volume /home/steam/Steam/steamapps/common/PalServer/Pal/Saved:$ABSOLUTE_SAVE_DIR \
+    --volume $ABSOLUTE_SAVE_DIR:/home/steam/Steam/steamapps/common/PalServer/Pal/Saved \
     -p 8211:8211/udp \
     -ti cyr62110/palworld:$IMAGE_VERSION
