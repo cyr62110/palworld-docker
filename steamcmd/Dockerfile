@@ -4,7 +4,8 @@ RUN apt update && \
     apt install -y curl lib32gcc-s1
 
 # Create a steam user to avoid running game server on root.
-RUN useradd --create-home steam -u 42420 -g 42420
+RUN groupadd -g 42420 steam && \
+    useradd --create-home steam -u 42420 -g steam
 WORKDIR /home/steam
 USER steam
 
