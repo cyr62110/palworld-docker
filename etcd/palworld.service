@@ -17,7 +17,7 @@ ExecStart=/usr/bin/docker run --name palworld \
     -v /home/palworld:/home/steam/Steam/steamapps/common/PalServer/Pal/Saved \
     -p 8211:8211/udp \
     ghcr.io/cyr62110/palworld:latest
-ExecStop=/usr/bin/docker stop ghost
+ExecStop=/usr/bin/docker stop palworld
 
 [Install]
 WantedBy=multi-user.target
